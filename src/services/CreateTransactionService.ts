@@ -22,13 +22,14 @@ class CreateTransactionService {
     const transactionsRepository = getCustomRepository(TransactionsRepository);
 
     const findCategory = await categoriesRepository.findOne({
-      where: { category },
+      where: { title: category },
     });
     if (!findCategory) {
       const newCategory = categoriesRepository.create({
         title: category,
       });
       await categoriesRepository.save(newCategory);
+
       const transaction = transactionsRepository.create({
         title,
         value,
