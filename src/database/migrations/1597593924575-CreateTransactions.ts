@@ -26,7 +26,7 @@ export default class CreateTransactions1597593924575
           },
           {
             name: 'value',
-            type: 'money',
+            type: 'double precision',
             isNullable: false,
           },
           {
@@ -55,7 +55,7 @@ export default class CreateTransactions1597593924575
     await queryRunner.createForeignKey(
       'transactions',
       new TableForeignKey({
-        name: 'TransactionCategory',
+        name: 'TransactionsCategory',
         columnNames: ['category_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'categories',
@@ -66,7 +66,7 @@ export default class CreateTransactions1597593924575
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('transactions', 'TransactionCategory');
-    await queryRunner.dropTable('categories');
+    await queryRunner.dropForeignKey('transactions', 'TransactionsCategory');
+    await queryRunner.dropTable('transactions');
   }
 }

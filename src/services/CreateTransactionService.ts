@@ -20,7 +20,11 @@ class CreateTransactionService {
   }: Request): Promise<Transaction> {
     const categoriesRepository = getRepository(Category);
     const transactionsRepository = getCustomRepository(TransactionsRepository);
+    const balance = await transactionsRepository.getBalance();
 
+    if (type === 'outcome' && value > balance.total) {
+      throw new Error('value has to be lower than the balance');
+    }
     const findCategory = await categoriesRepository.findOne({
       where: { title: category },
     });
